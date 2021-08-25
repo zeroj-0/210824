@@ -9,16 +9,23 @@ import zeroj4.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
     /**
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
      * 추상에만 의존하지 않고 구체클래스에도 의존했었음 (DIP 위반)
      * 그리고 구체클래스를 바꾸는 순간 클라이언트인 OrderServiceImpl의 클래스에서 코드를 변경해주어야함 (OCP 위반)
     private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     private final  DiscountPolicy discountPolicy = new RateDiscountPolicy();
      따라서 인터페이스에만 의존하게 하기 위해서는
      */
+
     //인터페이스에만 의존하도록 설계
-    private  DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private  final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

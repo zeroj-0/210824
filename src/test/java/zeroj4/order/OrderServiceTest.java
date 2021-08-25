@@ -1,15 +1,31 @@
 package zeroj4.order;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import zeroj4.AppConfig;
 import zeroj4.member.Grade;
 import zeroj4.member.Member;
 import zeroj4.member.MemberService;
 import zeroj4.member.MemberServiceImpl;
 
 public class OrderServiceTest {
+
+    MemberService memberService;
+    OrderService orderService;
+
+    @BeforeEach
+    public  void beforeEach(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
+
+    /**
+     * 기존 코드
     MemberService memberService = new MemberServiceImpl();
     OrderService orderService = new OrderServiceImpl();
+     */
 
     @Test
     void createOrder(){
