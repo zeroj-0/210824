@@ -1,5 +1,7 @@
 package zeroj4;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import zeroj4.member.Grade;
 import zeroj4.member.Member;
 import zeroj4.member.MemberService;
@@ -7,8 +9,17 @@ import zeroj4.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args){
-        AppConfig appConfig = new AppConfig();
+
+        //스프링을 사용하는 버전
+        //얘네가 다 관리해줌(@Bean처리한 것들)
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+
+        /**
+         * 순수자바코드로만 구성된 코드드
+       AppConfig appConfig = new AppConfig();
         MemberService memberService = appConfig.memberService();
+         */
 
         /**
          * 기존에는 main메소드에서 MemberServiceImpl을 직접 입력해줬음

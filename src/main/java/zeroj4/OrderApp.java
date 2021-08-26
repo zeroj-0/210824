@@ -1,5 +1,7 @@
 package zeroj4;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import zeroj4.member.Grade;
 import zeroj4.member.Member;
 import zeroj4.member.MemberService;
@@ -12,9 +14,17 @@ public class OrderApp {
 
     public static void main(String[] args) {
 
+        //스프링으로 변환한 코드
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+        OrderService orderService = applicationContext.getBean("orderService",OrderService.class);
+
+        /**
+         * 순수 자바 코드
         AppConfig appConfig = new AppConfig();
         MemberService memberService = appConfig.memberService();
         OrderService orderService = appConfig.orderService();
+         */
 
 //        MemberService memberService = new MemberServiceImpl();
 //        OrderService orderService = new OrderServiceImpl();
